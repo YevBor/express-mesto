@@ -44,14 +44,14 @@ app.post('/signup', celebrate({
     about: Joi.string().min(2).max(30),
     avatar: Joi.string().regex(/(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|gif|png|svg))/),
     email: Joi.string().email().required(),
-    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+    password: Joi.string().required(),
   }),
 }), createUser);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().email().required(),
-    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+    password: Joi.string().required(),
   }),
 }), login);
 

@@ -35,26 +35,22 @@ const getProfile = (req, res, next) => {
 
 
 const getMe = (req, res, next) => {
-  const { authorization } = req.headers;
-  if (!authorization || !authorization.startsWith('Bearer ')) {
-    return res.status(401).send({ message: 'Нет доступа' });
-  }
+  // const { authorization } = req.headers;
+  // const token = authorization.replace('Bearer ', '');
 
-  const token = authorization.replace('Bearer ', '');
+  // const isAuthorized = () => {
+  //   try {
+  //     return jwt.verify(token, JWT_SECRET);
+  //   } catch (err) {
+  //     return false;
+  //   }
+  // };
 
-  const isAuthorized = () => {
-    try {
-      return jwt.verify(token, JWT_SECRET);
-    } catch (err) {
-      return false;
-    }
-  };
+  // if (!isAuthorized(token)) {
+  //   throw new ForbiddenError('Доступ запрещен');
+  // }
 
-  if (!isAuthorized(token)) {
-    throw new ForbiddenError('Доступ запрещен');
-  }
-
-  return User.findById(req.user._id)
+  User.findById(req.user._id)
     .then((user) => {
       if (!user) {
         next(new NotFoundError('Нет пользователя с таким id'));
@@ -79,12 +75,10 @@ const createUser = (req, res, next) => {
     }))
     .then((user) => res.status(200).send({ mail: user.email }))
     .catch((err) => {
-      if (err.name === 'ValidationError' || err.name === 'CastError') {
-        throw new BadRequestError('Данные не прошли валидацию');
-      }
       if (err.name === 'MongoError' || err.code === '11000') {
         throw new ConflictError('Такой емейл уже зарегистрирован');
       }
+      throw new BadRequestError('Данные не прошли валидацию');
     })
     .catch(next);
 };
