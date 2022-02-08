@@ -1,14 +1,16 @@
-# Проект Mesto фронтенд + бэкенд
+# Project Mesto (The Place) front end and back-end
 
-## Директории
+## Description
 
-`/routes` — папка с файлами роутера  
-`/controllers` — папка с файлами контроллеров пользователя и карточки   
-`/models` — папка с файлами описания схем пользователя и карточки  
-  
-Остальные директории вспомогательные, создаются при необходимости разработчиком
+Node/Express/MongoDB back end for [React photo sharing front end](https://github.com/yevbor/react-mesto-auth)\
+Sprints: 13 - 15
 
-## Запуск проекта
+## Run the project
 
-`npm run start` — запускает сервер   
-`npm run dev` — запускает сервер с hot-reload
+`npm run start` — starts the server   
+`npm run dev` — starts the server with hot-reload
+
+## Technologies used
+- Node, Express: middlewares, routers, controllers, REST api, error handling
+- MongoDB, Mongoose: schemas, models, CRUD operations, refs
+- Security: bcrypt password hashing, Celebrate/Joi + MongoDB validation with regex matching, JWT token, rate limiter
